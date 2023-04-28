@@ -29,7 +29,6 @@ public class Hogwarts {
 
     }
 
-
     public Casa getCasa(String nombre){
         return casas.get(nombre);
     }

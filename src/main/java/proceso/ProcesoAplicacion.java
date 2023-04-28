@@ -51,6 +51,10 @@ public class ProcesoAplicacion {
     private String leerNombreArchivo() {
         System.out.print("Ingrese el nombre del archivo de datos: ");
         String nombreArchivo = miEscanner.nextLine();
+        if(nombreArchivo == ""){
+            System.out.print("-----Se toma nombre del archivo por defecto: 'HarryPotter-data.csv'\n\n");
+            nombreArchivo = "HarryPotter-data.csv";
+        }
         return nombreArchivo;
     }
 
@@ -86,19 +90,19 @@ public class ProcesoAplicacion {
         for (String casa : new String[] {"Gryffindor", "Slytherin", "Hufflepuff", "Ravenclaw"}){
             System.out.println("Casa: " + casa + " ==> " + hogwarts.getCasa(casa).getCantidadEstudiantes() + " estudiantes");
         }
-        System.out.println("------------------------");
-        System.out.println("------------------------");
+        System.out.println("========================");
+        System.out.println("========================");
     }
 
     private void listadoEstudiantesNoHumanos() {
-        System.out.println("A continuación informamos la lista de estudiantes NO humanos en Hogwarts:");
-        for(Estudiante e : lista){
-            if (!e.getEspecie().equals("Human")) {
-                Estudiante eNoHumano = e;
-                System.out.println(eNoHumano);
-            }
-        }
+        System.out.println("\n\n=============================");
+        System.out.println("ESTUDIANTES NO HUMANOS ENCONTRADOS:");
+            for (Estudiante e : lista)
+                if (!e.getEspecie().toUpperCase().trim().equals("HUMAN")) {
+                    System.out.println(e);
     }
+    }
+
 
 
     private void persistirCasas() {
