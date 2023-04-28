@@ -2,12 +2,15 @@ package proceso;
 
 import data.ProveedorConexionSqlite;
 import data.RepositorioCasas;
+import data.RepositorioEstudiantes;
 import modelo.Casa;
 import modelo.Estudiante;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.print.DocFlavor.READER;
 
 public class ProcesoAplicacion {
     Scanner miEscanner = new Scanner(System.in);
@@ -47,6 +50,12 @@ public class ProcesoAplicacion {
     private String leerNombreArchivo() {
         System.out.print("Ingrese el nombre del archivo de datos: ");
         String nombreArchivo = miEscanner.nextLine();
+
+        if(nombreArchivo == ""){
+            System.out.print("-- Se tomo nombre del archivo por defecto: 'HarryPotter-data.csv'\n\n");
+            nombreArchivo = "HarryPotter-data.csv";
+        }
+
         return nombreArchivo;
     }
 
@@ -75,17 +84,24 @@ public class ProcesoAplicacion {
             hogwarts.agregarEstudiante(e);
         }
 
-
     }
 
     private void cantidadEstudiantesPorCasa() {
+        System.out.println("\n\n=============================");
         System.out.println("Cantidad de Estudiantes por casa: ");
         for (String casa : new String[] {"Gryffindor", "Slytherin", "Hufflepuff", "Ravenclaw"}){
             System.out.println("Casa: " + casa + " ==> " + hogwarts.getCasa(casa).getCantidadEstudiantes() + " estudiantes");
         }
     }
 
-    private void listadoEstudiantesNoHumanos() {
+    private void listadoEstudiantesNoHumanos() { //agregado 
+                System.out.println("\n\n=============================");
+                System.out.println("ESTUDIANTES NO HUMANOS ENCONTRADOS:");
+                for (Estudiante e : lista)
+                    if (!e.getEspecie().toUpperCase().trim().equals("HUMAN")) {
+                        System.out.println(e);
+                    }
+                System.out.println();    
     }
 
     private void persistirCasas() {
@@ -102,5 +118,23 @@ public class ProcesoAplicacion {
 
         }
     }
+
+    private void persistirEstudiantes() {
+        Connection miConexion = ProveedorConexionSqlite.conectar(".\\data\\baseDeDatos.sqlite");
+        RepositorioEstudiantes repositorio = new RepositorioEstudiantes(miConexion);
+    
+        // Iterar sobre la lista de estudiantes del colegio Hogwarts
+        for (Estudiante estudiante : hogwarts.getEstudiantes()) {
+            Estudiante estudianteGuardado = repositorio.getEstudiante(estudiante.getNumero());
+            if (estudianteGuardado == null) {  // Si el estudiante no está en la BD, lo agregamos
+                repositorio.agregarEstudiante(estudiante);
+            }
+        }
+    }
+    
+    
+
+
+
 
 }

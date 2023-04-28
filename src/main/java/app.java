@@ -1,12 +1,12 @@
-//import data.ProveedorConexionSqlite;
-//import modelo.Estudiante;
-//import proceso.Hogwarts;
-//import proceso.ProcesadorArchivoCsv;
+import data.ProveedorConexionSqlite;
+import modelo.Estudiante;
+import proceso.Hogwarts;
+import proceso.ProcesadorArchivoCsv;
 import proceso.ProcesoAplicacion;
 
-//import java.sql.Connection;
-//import java.util.ArrayList;
-//import java.util.Scanner;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class app {
     public static void main(String[] args)throws Exception{
