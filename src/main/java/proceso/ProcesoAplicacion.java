@@ -33,7 +33,7 @@ public class ProcesoAplicacion {
 
         agregarEstudiantesHogwarts();
         cantidadEstudiantesPorCasa();
-        listadoEstudiantesNoHumanos();
+        EstudiantesNoHumanos();
 
         // Persistencia de Datos
         persistirCasas();
@@ -90,17 +90,16 @@ public class ProcesoAplicacion {
         for (String casa : new String[] {"Gryffindor", "Slytherin", "Hufflepuff", "Ravenclaw"}){
             System.out.println("Casa: " + casa + " ==> " + hogwarts.getCasa(casa).getCantidadEstudiantes() + " estudiantes");
         }
-        System.out.println("========================");
-        System.out.println("========================");
+        System.out.println("=================================");
     }
 
-    private void listadoEstudiantesNoHumanos() {
+    private void EstudiantesNoHumanos() {
         System.out.println("\n\n=============================");
         System.out.println("ESTUDIANTES NO HUMANOS ENCONTRADOS:");
             for (Estudiante e : lista)
                 if (!e.getEspecie().toUpperCase().trim().equals("HUMAN")) {
                     System.out.println(e);
-    }
+                }
     }
 
 
